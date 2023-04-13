@@ -107,11 +107,9 @@ class UserController {
 
             const { email, password, avatar, name } = req.body;
 
-
-
-            if (name) {
-                await db.query
-            }
+            // if (name) {
+            //     await db.query
+            // }
         }
         catch (e) {
             console.log(e);
