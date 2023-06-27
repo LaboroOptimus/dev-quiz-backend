@@ -25,8 +25,22 @@ router.post(
 
 router.get(
     '/getUserTests',
-    [...userTestsChecks],
     testsController.getUserTests
+)
+
+router.post(
+    '/createTest',
+    testsController.createTest
+)
+
+router.post(
+    '/answerTest',
+    testsController.answerTest
+)
+
+router.get(
+    '/getHistory',
+    testsController.getUserAnswers
 )
 
 module.exports = router;

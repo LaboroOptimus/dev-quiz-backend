@@ -23,11 +23,17 @@ CREATE TABLE tests(
   isUserTest BOOLEAN,
   timer INTEGER,
   levelId INTEGER,
-  topicId INTEGER,
   creatorId INTEGER,
   FOREIGN KEY (levelId) REFERENCES levels(id),
-  FOREIGN KEY (topicId) REFERENCES topics(id),
   FOREIGN KEY (creatorId) REFERENCES users(id)
+);
+
+CREATE TABLE test_topics (
+    id SERIAL PRIMARY KEY,
+    testId INTEGER,
+    topicId INTEGER,
+    FOREIGN KEY (testId) REFERENCES tests (id),
+    FOREIGN KEY (topicId) REFERENCES topics (id)
 );
 
 CREATE TABLE history(
@@ -36,9 +42,9 @@ CREATE TABLE history(
   testId INTEGER,
   FOREIGN KEY (userId) REFERENCES users(id),
   FOREIGN KEY (testId) REFERENCES tests(id),
-  result BOOLEAN [],
-  userAnswers INTEGER [],
-  creationDate VARCHAR(255)
+  result JSON,
+  userAnswers JSON,
+  creationDate TIMESTAMP
 );
 
 CREATE TABLE questions(
@@ -64,7 +70,61 @@ CREATE TABLE userssessions(
   userId INTEGER,
   FOREIGN KEY (userId) REFERENCES users(id),
   jwt TEXT
+);
+
+create TABLE useravatars(
+   id SERIAL PRIMARY KEY,
+   image BYTEA,
 )
+
+/* Training */
+
+create TABLE trainquestions(
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255)
+  levelId INTEGER,
+  topicId INTEGER,
+  isCodeQuestion: BOOLEAN,
+  code: VARCHAR(255),
+  FOREIGN KEY (levelId) REFERENCES levels(id),
+  FOREIGN KEY (topicId) REFERENCES topics(id)
+)
+
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
+VALUES('Где можно использовать JavaScript?', 0, 2, FALSE, NULL);
+	
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
+VALUES('В чем отличие между локальной и глобальной переменной?', 0, 2, FALSE, NULL);
+
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code)
+VALUES('В чем разница между confirm и prompt?', 0, 2, FALSE, NULL);
+
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
+VALUES('Что выведет этот код?', 0, 2, TRUE, 'let y = 1;let x = y = 2;alert(x);');
+
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
+VALUES('Чему равно i в конце кода?', 0, 2, TRUE, 'for(var i=0; i<10; i++) {...}alert(i);');
+
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
+VALUES('JSON - это...', 0, 2, FALSE, NULL);
+
+INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code)  
+VALUES('Можно ли в скрипте перевести посетителя на другую страницу сайта?', 0, 2, FALSE, NULL);
+
+
+
+/* Training */
+
+
+
+INSERT INTO tests (name, isUserTest, timer, levelId, creatorId)
+VALUES('Начальный тест', FALSE,0,0,0);
+
+INSERT INTO test_topics(testId, topicId)
+VALUES(0, 0);
+
+INSERT INTO test_topics(testId, topicId)
+VALUES(0, 1);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
 VALUES(0,'Где можно использовать JavaScript?',FALSE,FALSE, NULL);
