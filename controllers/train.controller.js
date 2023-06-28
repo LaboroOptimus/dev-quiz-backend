@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 const functions = require('../utils/functions')
 
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: process.env.OPENAI_KEY
 });
 
 const openai = new OpenAIApi(configuration);
