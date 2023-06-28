@@ -81,11 +81,11 @@ create TABLE useravatars(
 
 create TABLE trainquestions(
   id SERIAL PRIMARY KEY,
-  title VARCHAR(255)
+  title VARCHAR(255),
   levelId INTEGER,
   topicId INTEGER,
-  isCodeQuestion: BOOLEAN,
-  code: VARCHAR(255),
+  isCodeQuestion BOOLEAN,
+  code VARCHAR(255),
   FOREIGN KEY (levelId) REFERENCES levels(id),
   FOREIGN KEY (topicId) REFERENCES topics(id)
 )
