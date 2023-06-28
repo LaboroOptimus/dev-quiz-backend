@@ -90,101 +90,111 @@ create TABLE trainquestions(
   FOREIGN KEY (topicId) REFERENCES topics(id)
 )
 
+
+/* Dicts */
+
+INSERT INTO levels (title) VALUES('junior');
+
+INSERT INTO levels (title) VALUES('middle');
+
+INSERT INTO levels (title) VALUES('senior');
+
+INSERT INTO topics (title) VALUES('HTML');
+
+INSERT INTO topics (title) VALUES('CSS');
+
+INSERT INTO topics (title) VALUES('JavaScript');
+
+/* Dicts */
+
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
-VALUES('Где можно использовать JavaScript?', 0, 2, FALSE, NULL);
+VALUES('Где можно использовать JavaScript?', 1, 2, FALSE, NULL);
 	
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
-VALUES('В чем отличие между локальной и глобальной переменной?', 0, 2, FALSE, NULL);
+VALUES('В чем отличие между локальной и глобальной переменной?', 1, 2, FALSE, NULL);
 
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code)
-VALUES('В чем разница между confirm и prompt?', 0, 2, FALSE, NULL);
+VALUES('В чем разница между confirm и prompt?', 1, 2, FALSE, NULL);
 
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
-VALUES('Что выведет этот код?', 0, 2, TRUE, 'let y = 1;let x = y = 2;alert(x);');
+VALUES('Что выведет этот код?', 1, 2, TRUE, 'let y = 1;let x = y = 2;alert(x);');
 
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
-VALUES('Чему равно i в конце кода?', 0, 2, TRUE, 'for(var i=0; i<10; i++) {...}alert(i);');
+VALUES('Чему равно i в конце кода?', 1, 2, TRUE, 'for(var i=0; i<10; i++) {...}alert(i);');
 
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code) 
-VALUES('JSON - это...', 0, 2, FALSE, NULL);
+VALUES('JSON - это...', 1, 2, FALSE, NULL);
 
 INSERT INTO trainquestions (title, levelId, topicId, isCodeQuestion, code)  
-VALUES('Можно ли в скрипте перевести посетителя на другую страницу сайта?', 0, 2, FALSE, NULL);
-
-
+VALUES('Можно ли в скрипте перевести посетителя на другую страницу сайта?', 1, 2, FALSE, NULL);
 
 /* Training */
 
-
-
 INSERT INTO tests (name, isUserTest, timer, levelId, creatorId)
-VALUES('Начальный тест', FALSE,0,0,0);
+VALUES('Начальный тест', FALSE,0,1,0);
 
 INSERT INTO test_topics(testId, topicId)
-VALUES(0, 0);
-
-INSERT INTO test_topics(testId, topicId)
-VALUES(0, 1);
+VALUES(1, 3);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(0,'Где можно использовать JavaScript?',FALSE,FALSE, NULL);
+VALUES(1,'Где можно использовать JavaScript?',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(0,'Какое количество сообщений будет выведено в консоль?',TRUE,FALSE,'for(var i = 10; i < 35; i += 5){<br> console.log(i); <br>)}');	
+VALUES(1,'Какое количество сообщений будет выведено в консоль?',TRUE,FALSE,'for(var i = 10; i < 35; i += 5){<br> console.log(i); <br>)}');	
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(0,'В чем отличие между локальной и глобальной переменной?',FALSE,FALSE, NULL);
+VALUES(1,'В чем отличие между локальной и глобальной переменной?',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Какая переменная записана неверно?',	FALSE,FALSE, NULL);
+VALUES(1,'Какая переменная записана неверно?',	FALSE,FALSE, NULL);
 	      
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'В чем разница между confirm и prompt?',FALSE,FALSE, NULL);
+VALUES(1,'В чем разница между confirm и prompt?',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Язык JavaScript является подвидом языка Java - верно?',FALSE,FALSE, NULL);
+VALUES(1,'Язык JavaScript является подвидом языка Java - верно?',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Что будет на экране?',TRUE,FALSE,'alert(str); var str = "Hello";');		
+VALUES(1,'Что будет на экране?',TRUE,FALSE,'alert(str); var str = "Hello";');		
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Что выведет этот код?',TRUE,FALSE,'let y = 1;let x = y = 2;alert(x);');
+VALUES(1,'Что выведет этот код?',TRUE,FALSE,'let y = 1;let x = y = 2;alert(x);');
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Чему равно i в конце кода?',TRUE,FALSE,'for(var i=0; i<10; i++) {...}alert(i);');
+VALUES(1,'Чему равно i в конце кода?',TRUE,FALSE,'for(var i=0; i<10; i++) {...}alert(i);');
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Как объявить функцию в JavaScript?',FALSE,FALSE, NULL);
+VALUES(1,'Как объявить функцию в JavaScript?',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Какое из этих ключевых слов ООП не используется в JavaScript?',FALSE,FALSE, NULL);
+VALUES(1,'Какое из этих ключевых слов ООП не используется в JavaScript?',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'JSON - это...',FALSE,FALSE, NULL);
+VALUES(1,'JSON - это...',FALSE,FALSE, NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Можно ли в скрипте перевести посетителя на другую страницу сайта?',FALSE,FALSE,NULL);
+VALUES(1,'Можно ли в скрипте перевести посетителя на другую страницу сайта?',FALSE,FALSE,NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Какое сообщение покажет alert?',TRUE,FALSE,'var i = 5;  alert(++i);');	
+VALUES(1,'Какое сообщение покажет alert?',TRUE,FALSE,'var i = 5;  alert(++i);');	
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Расшифруйте аббревиатуру DOM',FALSE,FALSE, NULL);		
+VALUES(1,'Расшифруйте аббревиатуру DOM',FALSE,FALSE, NULL);		
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Чем отличается const от let?',FALSE,FALSE,NULL);
+VALUES(1,'Чем отличается const от let?',FALSE,FALSE,NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Как в JavaScript создать массив?',FALSE,FALSE,NULL);	
+VALUES(1,'Как в JavaScript создать массив?',FALSE,FALSE,NULL);	
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Расшифруйте аббревиатуру API.',FALSE,FALSE,NULL);	
+VALUES(1,'Расшифруйте аббревиатуру API.',FALSE,FALSE,NULL);	
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Какой оператор завершает выполнение текущей функции и возвращает её значение?',	FALSE,	FALSE,NULL);
+VALUES(1,'Какой оператор завершает выполнение текущей функции и возвращает её значение?',	FALSE,	FALSE,NULL);
 
 INSERT INTO questions (testid,title, isCodeQuestion, isMultipleAnswers, code) 
-VALUES(	0,'Что такое замыкание в JavaScript?',FALSE,FALSE,NULL);																	
+VALUES(1,'Что такое замыкание в JavaScript?',FALSE,FALSE,NULL);																	
 															
 
 INSERT  INTO answers(questionId, isCorrect,title) VALUES(	1	,	FALSE	,'	серверные приложения'	);																			
