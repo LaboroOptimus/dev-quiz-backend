@@ -216,7 +216,7 @@ class TestsController {
         const { testId, result, userAnswers } = req.body;
 
         const date = new Date();
-        const timestamp = date.getTime();
+        const timestamp = date.toISOString();
 
         try {
             await db.query(

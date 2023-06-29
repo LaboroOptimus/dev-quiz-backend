@@ -4,16 +4,6 @@ const { body, withMessage } = require('express-validator');
 
 const trainController = require('../controllers/train.controller')
 
-// const registerChecks = [
-//     body('email').isEmail().withMessage('Incorrect email'),
-//     body('password').isLength({ min: 5 }).withMessage('Incorrect password'),
-// ]
-
-// const loginChecks = [
-//     body('email').isEmail().withMessage('Incorrect email'),
-//     body('password').isLength({ min: 5 }).withMessage('Incorrect password'),
-// ]
-
 router.post(
     '/startTrain',
     trainController.startTrain
