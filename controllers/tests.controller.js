@@ -90,8 +90,6 @@ class TestsController {
                     ...question[0],
                     answers: answersRows.rows
                 }
-
-                questionsData.push(questionData)
             }
 
             testData = {
@@ -167,11 +165,11 @@ class TestsController {
             const token = req.headers.authorization;
             const decodedToken = jwt.verify(token, 'your_secret_key');
             const userId = decodedToken.userId;
-            const { levelId, name, questions, topicId, timer } = req.body;
+            const { levelId, name, questions, topicId, timer, isPrivate } = req.body;
 
             const createdTestIdResult = await db.query(
-                'INSERT INTO tests (name, isUserTest, timer, levelId, creatorId) VALUES ($1, $2, $3, $4, $5) RETURNING id',
-                [name, true, timer, levelId, userId]
+                'INSERT INTO tests (name, isUserTest, timer, levelId, creatorId, isPrivate) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
+                [name, true, timer, levelId, userId, isPrivate]
             );
 
             for (let i = 0; i < topicId.length; i++) {

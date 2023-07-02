@@ -24,6 +24,7 @@ CREATE TABLE tests(
   timer INTEGER,
   levelId INTEGER,
   creatorId INTEGER,
+  isPrivate BOOLEAN,
   FOREIGN KEY (levelId) REFERENCES levels(id),
   FOREIGN KEY (creatorId) REFERENCES users(id)
 );
