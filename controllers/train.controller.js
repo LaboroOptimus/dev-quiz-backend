@@ -20,6 +20,8 @@ class TrainController {
 
             const { topicId, levelId } = req.body;
 
+            // TODO: выбирать рандомные вопрос + выбирать 10 штук
+
             const questionsRows = await db.query(`SELECT * from trainquestions WHERE topicId = ${topicId} AND levelId = ${levelId}`)
 
             res.status(200).json({ status: 'success', data: questionsRows.rows })

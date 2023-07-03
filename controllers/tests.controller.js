@@ -90,6 +90,7 @@ class TestsController {
                     ...question[0],
                     answers: answersRows.rows
                 }
+                questionsData.push(questionData)
             }
 
             testData = {
