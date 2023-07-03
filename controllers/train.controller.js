@@ -92,6 +92,35 @@ class TrainController {
             res.status(500).json({ message: 'Internal server error' });
         }
     }
+
+    async updateHistory(req, res) {
+        const token = req.headers.authorization;
+        const decodedToken = jwt.verify(token, 'your_secret_key');
+        const userId = decodedToken.userId;
+        const { levelId, topicId, userAnswers} = req.body;
+
+        const date = new Date();
+        const timestamp = date.toISOString();
+
+        try {
+            await db.query(
+                'INSERT INTO trainhistory (userId, levelId, topicId, userAnswers, creationDate) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+                [userId, levelId, topicId, userAnswers, timestamp]
+            );
+
+            res.status(200).json({ status: 'success' })
+
+        } catch(e){
+            res.status(500).json({ status: 'error', e })
+        }
+
+
+    }
 }
+
+// id(pin):23
+// question(pin):"Где можно использовать JavaScript?"
+// answer(pin):"ntv"
+// result(pin):false
 
 module.exports = new TrainController();

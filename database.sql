@@ -91,6 +91,16 @@ create TABLE trainquestions(
   FOREIGN KEY (topicId) REFERENCES topics(id)
 )
 
+create TABLE trainhistory(
+  id SERIAL PRIMARY KEY,
+  userId INTEGER,
+  levelId INTEGER,
+  topicId INTEGER,
+  FOREIGN KEY (topicId) REFERENCES topics(id),
+  FOREIGN KEY (levelId) REFERENCES levels(id),
+  userAnswers JSON,
+  creationDate TIMESTAMP
+)
 
 /* Dicts */
 

@@ -19,6 +19,11 @@ router.post(
     trainController.explainTrainQuestion
 );
 
+router.post(
+    '/updateTrainingHistory',
+    trainController.updateHistory
+)
+
 // startTrain(язык, уровень, есть ли задачи на лайвкод или нет) => массив вопросов по языку и уровню
 
 // answerTrainQuestions(id вопроса) => true/false
