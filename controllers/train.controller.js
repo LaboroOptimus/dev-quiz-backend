@@ -41,7 +41,7 @@ class TrainController {
             const { id, answer } = req.body;
 
             const questionRow = await db.query(`SELECT * from trainquestions WHERE id = ${id}`)
-            const openAiString = functions.getOpenAiString(questionRow.rows[0].title, answer)
+            const openAiString = functions.getOpenAiString(questionRow.rows[0].title, questionRow.rows[0].code || '',  answer)
 
             const completion = await openai.createChatCompletion({
                 model: "gpt-3.5-turbo",

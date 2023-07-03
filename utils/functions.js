@@ -1,5 +1,5 @@
-const getOpenAiString = (question, answer) => {
-    return `Напиши '1' если ответ правильный, '0' если неправильный. Вопрос: ${question} Ответ: ${answer}`
+const getOpenAiString = (question, code = '',  answer) => {
+    return `Напиши '1' если ответ правильный, '0' если неправильный. Вопрос: ${question} ${code} Ответ: ${answer}`
 }
 
 const getOpenAiExplainationString = (question) => {
