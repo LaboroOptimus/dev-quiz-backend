@@ -24,13 +24,16 @@ router.post(
     trainController.updateHistory
 )
 
+router.get(
+    '/getTrainingHistory',
+    trainController.getTrainingHistory
+)
+
 // startTrain(язык, уровень, есть ли задачи на лайвкод или нет) => массив вопросов по языку и уровню
 
 // answerTrainQuestions(id вопроса) => true/false
 
 // explainTrainQuestion(id вопроса) => string
-
-
 
 // пользователь вводит тему и уровень => получает массив вопросов. (текстовых или на написание кода)
 // фронт отображает первый вопрос - пользователь вводит ответ - отправляет id вопроса на бек.

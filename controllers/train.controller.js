@@ -20,9 +20,7 @@ class TrainController {
 
             const { topicId, levelId } = req.body;
 
-            // TODO: выбирать рандомные вопрос + выбирать 10 штук
-
-            const questionsRows = await db.query(`SELECT * from trainquestions WHERE topicId = ${topicId} AND levelId = ${levelId}`)
+            const questionsRows = await db.query(`SELECT * from trainquestions WHERE topicId = ${topicId} AND levelId = ${levelId} ORDER BY RANDOM() LIMIT 10`)
 
             res.status(200).json({ status: 'success', data: questionsRows.rows })
         }
@@ -41,7 +39,7 @@ class TrainController {
             const { id, answer } = req.body;
 
             const questionRow = await db.query(`SELECT * from trainquestions WHERE id = ${id}`)
-            const openAiString = functions.getOpenAiString(questionRow.rows[0].title, questionRow.rows[0].code || '',  answer)
+            const openAiString = functions.getOpenAiString(questionRow.rows[0].title, questionRow.rows[0].code || '', answer)
 
             const completion = await openai.createChatCompletion({
                 model: "gpt-3.5-turbo",
@@ -97,7 +95,7 @@ class TrainController {
         const token = req.headers.authorization;
         const decodedToken = jwt.verify(token, 'your_secret_key');
         const userId = decodedToken.userId;
-        const { levelId, topicId, userAnswers} = req.body;
+        const { levelId, topicId, userAnswers } = req.body;
 
         const date = new Date();
         const timestamp = date.toISOString();
@@ -110,17 +108,25 @@ class TrainController {
 
             res.status(200).json({ status: 'success' })
 
-        } catch(e){
+        } catch (e) {
             res.status(500).json({ status: 'error', e })
         }
 
 
     }
-}
 
-// id(pin):23
-// question(pin):"Где можно использовать JavaScript?"
-// answer(pin):"ntv"
-// result(pin):false
+    async getTrainingHistory(req, res) {
+        const token = req.headers.authorization;
+        const decodedToken = jwt.verify(token, 'your_secret_key');
+        const userId = decodedToken.userId;
+
+        try {
+            const historyRows = await db.query(`SELECT * from trainhistory WHERE userId = ${userId} LIMIT 20`)
+            res.status(200).json({ status: 'success', data: historyRows.rows })
+        } catch (e) {
+            res.status(500).json({ status: 'error', e })
+        }
+    }
+}
 
 module.exports = new TrainController();
