@@ -43,4 +43,9 @@ router.get(
     testsController.getUserAnswers
 )
 
+router.get(
+    '/testApi',
+    testsController.testApi
+)
+
 module.exports = router;

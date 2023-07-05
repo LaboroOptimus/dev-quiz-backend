@@ -4,7 +4,9 @@ CREATE TABLE users(
   email VARCHAR(255),
   isEmailVerified BOOLEAN,
   password VARCHAR(255),
-  profileImage BYTEA
+  profileImage BYTEA,
+  passedTestByTopics JSON,
+  correctAnswersByTopics JSON,
 );
 
 CREATE TABLE levels(
@@ -77,6 +79,15 @@ create TABLE useravatars(
    id SERIAL PRIMARY KEY,
    image BYTEA,
 )
+
+-- create TABLE userstatistics(
+--   id SERIAL PRIMARY KEY,
+--   userId INTEGER,
+--   FOREIGN KEY (userId) REFERENCES users(id),
+--   passedTestAmount INTEGER,
+--   passedTestByTopics JSON,
+--   correctAnswersPercent INTEGER,
+-- )
 
 /* Training */
 

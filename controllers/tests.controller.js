@@ -2,6 +2,7 @@ const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
+const { spawn } = require('child_process');
 
 class TestsController {
     async getTests(req, res) {
@@ -21,12 +22,12 @@ class TestsController {
 
                 let currentTest = tests.rows.filter((elem) => elem.id === testsIds[i]) // текущий тест
                 const questionRows = await db.query(`SELECT * from questions WHERE testid = ${testsIds[i]}`) // все вопросы теста
+
                 const questionsIds = questionRows.rows.map((item) => item?.id); // все айдишники вопросов
                 let questionsData = [];
 
                 const topicsRows = await db.query(`SELECT * from test_topics WHERE testid = ${testsIds[i]}`)
                 const topicIds = topicsRows.rows.map((item) => item.topicid);
-
 
                 for (let j = 0; j < questionsIds.length; j++) {
                     const answersRows = await db.query('SELECT * from answers WHERE questionId = $1', [questionsIds[j]])
@@ -38,6 +39,7 @@ class TestsController {
                     }
 
                     questionsData.push(questionData)
+
                 }
                 testData.push({
                     ...currentTest[0],
@@ -45,7 +47,7 @@ class TestsController {
                     topicId: topicIds
                 })
             }
-            console.log(testData)
+
             res.status(200).json({ status: 'success', data: testData })
         }
         catch (e) {
@@ -169,7 +171,7 @@ class TestsController {
             const { levelId, name, questions, topicId, timer, isPrivate } = req.body;
 
             const createdTestIdResult = await db.query(
-                'INSERT INTO tests (name, isUserTest, timer, levelId, creatorId, isPrivate) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
+                'INSERT INTO tests (name, isusertest, timer, levelid, creatorid, isprivate) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
                 [name, true, timer, levelId, userId, isPrivate]
             );
 
@@ -179,7 +181,7 @@ class TestsController {
                     [createdTestIdResult.rows[0].id, topicId[i]]
                 );
             }
-
+            
             for (let i = 0; i < questions.length; i++) {
                 const { title, code, isCodeQuestion } = questions[i];
                 const isMultipleAnswers = questions[i].isMultipleAnswers || false;
@@ -208,11 +210,42 @@ class TestsController {
 
     }
 
+    async testApi(req, res) {
+        const token = req.headers.authorization;
+        const decodedToken = jwt.verify(token, 'your_secret_key');
+        // const userId = decodedToken.userId;
+        const userId = 14;
+        const { testId, result, userAnswers } = req.body;
+
+        const childProcess = spawn('node', ['./middlewares/analytics.js', JSON.stringify(result), userId, testId]);
+
+        childProcess.stdout.on('data', (data) => {
+            console.log(`Received data from child process: ${data}`);
+        });
+
+        // Обработка ошибок из процесса
+        childProcess.stderr.on('data', (data) => {
+            console.error(`Error from child process: ${data}`);
+        });
+
+        // Обработка завершения процесса
+        childProcess.on('close', (code) => {
+            console.log(`Child process exited with code ${code}`);
+        });
+
+    }
+
     async answerTest(req, res) {
         const token = req.headers.authorization;
         const decodedToken = jwt.verify(token, 'your_secret_key');
         const userId = decodedToken.userId;
         const { testId, result, userAnswers } = req.body;
+
+        const childProcess = spawn('node', ['./middlewares/analytics.js', JSON.stringify(result), userId, testId]);
+
+        childProcess.on('close', (code) => {
+            console.log(`Завершен успешно ${code}`);
+        });
 
         const date = new Date();
         const timestamp = date.toISOString();
