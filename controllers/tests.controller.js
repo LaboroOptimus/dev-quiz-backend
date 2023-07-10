@@ -277,45 +277,4 @@ class TestsController {
     }
 }
 
-// const test = {
-//     levelId: 0,
-//     name: 'Test test from DB',
-//     questions: [
-//         {
-//             title: 'Тестовый вопрос 1',
-//             code: '',
-//             isCodeQuestion: false,
-//             isMultipleAnswers: true,
-//             answers: [
-//                 {
-//                     title: 'Ответ 1',
-//                     isCorrect: true,
-//                 },
-//                 {
-//                     title: 'Ответ 2',
-//                     isCorrect: false,
-//                 }
-//             ]
-//         },
-//         {
-//             title: 'Тестовый вопрос 2',
-//             code: '',
-//             isCodeQuestion: false,
-//             isMultipleAnswers: true,
-//             answers: [
-//                 {
-//                     title: 'Ответ 3',
-//                     isCorrect: true,
-//                 },
-//                 {
-//                     title: 'Ответ 4',
-//                     isCorrect: false,
-//                 }
-//             ]
-//         }
-//     ],
-//     topicId: 0,
-//     timer: 100,
-// }
-
 module.exports = new TestsController();

@@ -80,15 +80,6 @@ create TABLE useravatars(
    image BYTEA,
 )
 
--- create TABLE userstatistics(
---   id SERIAL PRIMARY KEY,
---   userId INTEGER,
---   FOREIGN KEY (userId) REFERENCES users(id),
---   passedTestAmount INTEGER,
---   passedTestByTopics JSON,
---   correctAnswersPercent INTEGER,
--- )
-
 /* Training */
 
 create TABLE trainquestions(
@@ -112,6 +103,37 @@ create TABLE trainhistory(
   userAnswers JSON,
   creationDate TIMESTAMP
 )
+
+/* Training */
+
+/* Blog */
+
+create TABLE articles(
+   id SERIAL PRIMARY KEY,
+   title TEXT,
+   text TEXT,
+   userId INTEGER,
+   creationDate TIMESTAMP,
+   FOREIGN KEY (userId) REFERENCES users(id),
+)
+
+create TABLE articlestopics(
+  id SERIAL PRIMARY KEY,
+  topicId INTEGER,
+  articleId INTEGER,
+  FOREIGN KEY (topicId) REFERENCES topics (id),
+  FOREIGN KEY (articleId) REFERENCES articles (id)
+)
+
+create TABLe usersarticles(
+  id SERIAL PRIMARY KEY,
+  userId INTEGER,
+  articleId INTEGER,
+  FOREIGN KEY (userId) REFERENCES users (id),
+  FOREIGN KEY (articleId) REFERENCES articles (id)
+)
+
+/* Blog */
 
 /* Dicts */
 
